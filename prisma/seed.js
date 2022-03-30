@@ -3,18 +3,6 @@ const prisma = new PrismaClient();
 
 async function seed() {
 
-    const createdCustomer = await prisma.customer.create({
-        data: {
-            name: 'Alice',
-            contact: {
-                create: {
-                    phone: '07732106166',
-                    email: 'alice@gmail.com'
-                }
-            }
-        }
-    });
-    console.log('Customer created', createdCustomer);
     const date = new Date(Date.parse("2022-10-01"))
     const date2 = new Date(Date.parse("2022-10-02"))
     const date3 = new Date(Date.parse("2021-09-09"))
@@ -79,6 +67,32 @@ async function seed() {
         }
     }
     })
+    const createdCustomer = await prisma.customer.create({
+        data: {
+            name: 'Alice',
+            contact: {
+                create: {
+                    phone: '07732106166',
+                    email: 'alice@gmail.com'
+                }
+            },
+            tickets: {
+                create: [
+                    {
+                        screening: {
+                            connect: {id: 1}
+                        }
+                    },
+                    {
+                        screening: {
+                            connect: {id: 2}
+                        }
+                    }
+
+            ]
+            }
+        }
+    });
     /*
     const createdScreen = await prisma.screen.create({
         data: [{
